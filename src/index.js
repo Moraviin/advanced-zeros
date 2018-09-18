@@ -8,7 +8,11 @@ module.exports = function getZerosCount(number, base) {
       copyBase/=maxSimpleMutiplier;
       extraDivide++;
     }
-    else {
+    else if(extraDivide>=5){
+      break;
+    }
+    else
+    {
       maxSimpleMutiplier++;
       extraDivide=0;
     }
