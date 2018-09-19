@@ -1,27 +1,37 @@
-module.exports = function getZerosCount(number, base) {
-  let maxSimpleMutiplier=2;
+module.exports = function getZerosCount(n, base) {
+  let maxSimpleMultiplier=2;
+  let SimpleMultiplier=[];
+  let i=0;
   let copyBase=base;
   let zerosCount=0;
+  let minZerosCount=999999999999;
   let extraDivide=0;
+  let arrDivide=[];
+  let number=n;
   while (copyBase!=1){
-    if(copyBase%maxSimpleMutiplier==0){
-      copyBase/=maxSimpleMutiplier;
+    if(copyBase%maxSimpleMultiplier==0){
+      copyBase/=maxSimpleMultiplier;
       extraDivide++;
-    }
-    else if(extraDivide>=5){
-      break;
+      arrDivide[i]=extraDivide;
+      SimpleMultiplier[i]=maxSimpleMultiplier;
     }
     else
-    {
-      maxSimpleMutiplier++;
+    { 
+      if (extraDivide!=0)i++;
+      maxSimpleMultiplier++;
       extraDivide=0;
     }
   }
-  
- while(number>0){
-   number/=maxSimpleMutiplier;
-   number=Math.floor(number)
-   zerosCount+=number;
- }
- return Math.floor(zerosCount/extraDivide); // your implementation
+  for (i=0;i<SimpleMultiplier.length;i++){
+    number=n;
+    zerosCount=0;
+    while(number>0){
+      number/=SimpleMultiplier[i];
+      number=Math.floor(number);
+      zerosCount+=number;
+    }
+    zerosCount=Math.floor(zerosCount/arrDivide[i])
+    if(minZerosCount>zerosCount)minZerosCount=zerosCount;
+  }
+ return minZerosCount; // your implementation
 }
